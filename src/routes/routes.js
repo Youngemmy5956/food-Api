@@ -2,6 +2,12 @@ import express from "express";
 import User_model from "../model/users.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import Customer_model from "../model/customers.js";
+import Delivery_model from "../model/deliveries.js";
+import Food_model from "../model/foods.js";
+import Vendor_model from "../model/vendors.js";
+import Order_model from "../model/orders.js";
+
 
 
 
@@ -27,9 +33,6 @@ router.post("/auth/register", async (req, res) => {
   if (email.indexOf(".") === -1) {
     return res.status(400).json({ message: "invalid email" });
   }
-  // if (email === email) {
-  //   return res.status(400).json({ message: "email already exist" });
-  // }
   try {
     bcrypt.hash(password, 10).then(async (hash) => {
       await User_model.create({ firstName, lastName, email, password: hash }).then(

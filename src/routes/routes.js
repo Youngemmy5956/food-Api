@@ -1,9 +1,8 @@
 import express from "express";
-import Model from "../../model/users.js";
-import express from "express";
-import Model from "../model/users.js";
+import User_model from "../model/users.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+
 
 
 // import auth from "../middleware/auth.js";
@@ -33,7 +32,7 @@ router.post("/auth/register", async (req, res) => {
   // }
   try {
     bcrypt.hash(password, 10).then(async (hash) => {
-      await Model.create({ firstName, lastName, email, password: hash }).then(
+      await User_model.create({ firstName, lastName, email, password: hash }).then(
         (user) => {
           const maxAge = 3 * 60 * 60;
           const token = jwt.sign(
@@ -63,7 +62,7 @@ router.post("/auth/login", async (req, res, next) => {
     return res.status(400).json({ message: "email or password not provided " });
   }
   try {
-    const user = await Model.findOne({ email });
+    const user = await  User_model.findOne({ email });
     if (!user) {
       res
         .status(400)
@@ -96,7 +95,7 @@ router.post("/auth/login", async (req, res, next) => {
 
 router.get("/getAll", async (req, res) => {
   try {
-    const data = await Model.find();
+    const data = await  User_model.find();
     res.json(data);
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -107,7 +106,7 @@ router.get("/getAll", async (req, res) => {
 
 router.get("/getById/:id", async (req, res) => {
   try {
-    const data = await Model.findById(req.params.id);
+    const data = await  User_model.findById(req.params.id);
     res.json(data);
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -121,7 +120,7 @@ router.patch("/update/:id", async (req, res) => {
     const updateData = req.body;
     const options = { new: true };
 
-    const data = await Model.findByIdAndUpdate(id, updateData, options);
+    const data = await  User_model.findByIdAndUpdate(id, updateData, options);
     res.json(data);
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
@@ -132,7 +131,7 @@ router.patch("/update/:id", async (req, res) => {
 router.delete("/delete/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const data = await Model.findByIdAndDelete(id);
+    const data = await  User_model.findByIdAndDelete(id);
     res.status(201).json({ message: "User successfully deleted", data });
     // res.send(`User with name ${data.name} has been deleted..`);
   } catch (err) {

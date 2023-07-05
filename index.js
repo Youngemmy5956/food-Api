@@ -2,9 +2,9 @@ import express from "express";
 import * as dotenv from "dotenv";
 import connectDB from "./src/config/mongo.js";
 import router from "./src/routes/routes.js";
+import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import cors from "cors";
 
 dotenv.config();
 

@@ -34,5 +34,6 @@ const Order = mongoose.model("Order", orderSchema);
 
 export default Order;
 
-
-
+// Path: src\model\orders.js
+// Compare this snippet from src\model\users.js:
+// import mongoose from "mongoose";

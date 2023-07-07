@@ -28,6 +28,9 @@ router.post("/delivery/register", async (req, res) => {
   }
 });
 
+// order routes
+   
+
 
 // customer routes
 
@@ -43,6 +46,7 @@ router.post("/customer/register", async (req, res) => {
     return res.status(400).json({ message: "all fields are required" });
   }
   if (email.indexOf("@") === -1) {
+     
     return res.status(400).json({ message: "invalid email" });
   }
   if (email.indexOf(".") === -1) {
